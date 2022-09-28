@@ -6,3 +6,4 @@ void _print_rev_recursion(char *s);
 int _strlen(char *c, int i);
 void printr(char *, int);
 int _strlen_recursion(char *s);
+int factorial(int n);
