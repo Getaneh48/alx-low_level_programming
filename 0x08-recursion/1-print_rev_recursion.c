@@ -28,7 +28,6 @@ void printr(char *c, int len)
 {
 	if (len < 0)
 	{
-		_putchar('\n');
 		return;
 	}
 
