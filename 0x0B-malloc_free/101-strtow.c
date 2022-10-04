@@ -24,6 +24,7 @@ char **strtow(char *str)
 		return (NULL);
 
 	count = count_words(str);
+
 	sp_word = (char **) malloc((count + 2) * sizeof(char *));
 	sp_word = split_word(str, sp_word);
 
@@ -70,9 +71,8 @@ char **split_word(char *str, char **sp_word)
 			if (len > 0)
 			{
 				k = 0;
-				m++;
 				sp_word[m] = (char *) malloc(len + 2 * sizeof(char));
-				for (i = j - len; i <= j; i++)
+				for (i = j - len + 1; i <= j; i++)
 				{
 					*(*(sp_word + m) + k) = *(str + i);
 					k++;
@@ -119,5 +119,5 @@ int count_words(char *s)
 		i++;
 	}
 
-	return (count);
+	return (count + 1);
 }
