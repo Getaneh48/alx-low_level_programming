@@ -4,7 +4,7 @@
 #define SPACE (char)32
 #define TAB (char)9
 
-void init_memory(char *, char *str, int i, int j, int len, int k);
+void init_memory(char *, char *str, int i, int j, int len, int offset, int k);
 
 /**
 * strtow - splits a string into words.
@@ -68,7 +68,7 @@ char **split_word(char *str, char **sp_word)
 			if (len > 0)
 			{
 				sp_word[m] = (char *) malloc(len + 2 * sizeof(char));
-				init_memory(sp_word[m], str, i, j, len, k);
+				init_memory(sp_word[m], str, i, j, len, 0, k);
 				len = 0;
 				k = 0;
 				m++;
@@ -80,7 +80,7 @@ char **split_word(char *str, char **sp_word)
 			{
 				k = 0;
 				sp_word[m] = (char *) malloc(len + 2 * sizeof(char));
-				init_memory(sp_word[m], str, i, j, len + 1, k);
+				init_memory(sp_word[m], str, i, j, len, 1, k);
 				len = 0;
 			}
 		}
@@ -98,14 +98,15 @@ char **split_word(char *str, char **sp_word)
 * @i: integer value.
 * @j: integer value.
 * @len: integer value.
+* @offset: integer value.
 * @k: integer value.
 *
 */
 
-void init_memory(char *sp_word, char *str, int i, int j, int len, int k)
+void init_memory(char *sp_word, char *str, int i, int j, int len, int offset, int k)
 {
 
-	for (i = j - len; i <= j; i++)
+	for (i = (j - len) + offset; i <= j; i++)
 	{
 		*(sp_word + k) = *(str + i);
 		k++;
