@@ -4,6 +4,8 @@
 #define SPACE (char)32
 #define TAB (char)9
 
+void init_memory(char *, char *str, int i, int j, int len, int k);
+
 /**
 * strtow - splits a string into words.
 *
@@ -48,22 +50,25 @@ char **strtow(char *str)
 char **split_word(char *str, char **sp_word)
 {
 	int i, k, j, len, m;
+	char bc, c, afc;
 
 	i = k = j = len = m = 0;
 	while (*(str + j) != '\0')
 	{
-		if ((*(str + j) != SPACE && *(str + j + 1) != SPACE))
+		c = *(str + j);
+		afc = *(str + j + 1);
+		bc = *(str + j - 1);
+
+		if (c != SPACE && afc != SPACE)
+			len++;
+		else if (c != SPACE && bc == SPACE && afc == SPACE)
 			len++;
 		else
 		{
 			if (len > 0)
 			{
 				sp_word[m] = (char *) malloc(len + 2 * sizeof(char));
-				for (i = j - len; i <= j; i++)
-				{
-					*(*(sp_word + m) + k) = *(str + i);
-					k++;
-				}
+				init_memory(sp_word[m], str, i, j, len, k);
 				len = 0;
 				k = 0;
 				m++;
@@ -75,17 +80,36 @@ char **split_word(char *str, char **sp_word)
 			{
 				k = 0;
 				sp_word[m] = (char *) malloc(len + 2 * sizeof(char));
-				for (i = j - len + 1; i <= j; i++)
-				{
-					*(*(sp_word + m) + k) = *(str + i);
-					k++;
-				}
+				init_memory(sp_word[m], str, i, j, len + 1, k);
 				len = 0;
 			}
 		}
 		j++;
 	}
 	return (sp_word);
+}
+
+/**
+* init_memory - initialize a memory location with a value.
+*
+* @sp_word: address of an array.
+*
+* @str: string pointer.
+* @i: integer value.
+* @j: integer value.
+* @len: integer value.
+* @k: integer value.
+*
+*/
+
+void init_memory(char *sp_word, char *str, int i, int j, int len, int k)
+{
+
+	for (i = j - len; i <= j; i++)
+	{
+		*(sp_word + k) = *(str + i);
+		k++;
+	}
 }
 
 /**
