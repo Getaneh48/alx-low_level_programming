@@ -1,8 +1,8 @@
 #include "main.h"
 #include <string.h>
 
-int count_words(char *s);
-char **split_word(char *str, char **sp_word);
+#define SPACE (char)32
+#define TAB (char)9
 
 /**
 * strtow - splits a string into words.
@@ -20,11 +20,10 @@ char **strtow(char *str)
 
 	count = 0;
 
-	if (str == NULL || strlen(str) <= 0)
+	if (str == NULL || strlen(str) <= 0 || (strlen(str) == 1 && *str == SPACE))
 		return (NULL);
 
 	count = count_words(str);
-
 	sp_word = (char **) malloc((count + 2) * sizeof(char *));
 	sp_word = split_word(str, sp_word);
 
@@ -47,10 +46,9 @@ char **split_word(char *str, char **sp_word)
 	int i, k, j, len, m;
 
 	i = k = j = len = m = 0;
-
 	while (*(str + j) != '\0')
 	{
-		if (*(str + j) != (char) 32 && *(str + j + 1) != (char) 32)
+		if ((*(str + j) != SPACE && *(str + j + 1) != SPACE))
 			len++;
 		else
 		{
@@ -84,7 +82,6 @@ char **split_word(char *str, char **sp_word)
 		}
 		j++;
 	}
-	sp_word[++m] = NULL;
 	return (sp_word);
 }
 
@@ -103,7 +100,19 @@ int count_words(char *s)
 
 	while (*(s + i) != '\0')
 	{
-		if (*(s + i) == (char) 32 && *(s + i + 1) != (char) 32)
+		if (*(s + i) == SPACE && i == 0)
+		{
+			i++;
+			continue;
+		}
+
+		if (*(s + i) == SPACE && (*(s + i + 1) == '\0'))
+		{
+			i++;
+			continue;
+		}
+
+		if (*(s + i) == SPACE && *(s + i + 1) != SPACE)
 		{
 			count++;
 		}
