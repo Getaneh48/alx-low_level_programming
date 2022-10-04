@@ -28,7 +28,7 @@ char **strtow(char *str)
 	if (count <= 0)
 		return (NULL);
 
-	sp_word = (char **) malloc((count + 1) * sizeof(char *));
+	sp_word = (char **) malloc((count + 2) * sizeof(char *));
 	sp_word = split_word(str, sp_word);
 
 	return (sp_word);
