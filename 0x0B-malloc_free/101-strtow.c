@@ -25,7 +25,10 @@ char **strtow(char *str)
 
 	count = count_words(str);
 
-	sp_word = (char **) malloc((count + 2) * sizeof(char *));
+	if (count <= 0)
+		return (NULL);
+
+	sp_word = (char **) malloc((count + 1) * sizeof(char *));
 	sp_word = split_word(str, sp_word);
 
 	return (sp_word);
@@ -114,10 +117,11 @@ int count_words(char *s)
 
 		if (*(s + i) == SPACE && *(s + i + 1) != SPACE)
 		{
-			count++;
+			if (*(s + i + 1) != '\0')
+				count++;
 		}
 		i++;
 	}
 
-	return (count + 1);
+	return (count);
 }
