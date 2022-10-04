@@ -4,7 +4,7 @@
 #define SPACE (char)32
 #define TAB (char)9
 
-void init_memory(char *, char *str, int i, int j, int len, int offset, int k);
+void init_memory(char *, char *s, int i, int j, int len, int o, int k);
 
 /**
 * strtow - splits a string into words.
@@ -94,21 +94,21 @@ char **split_word(char *str, char **sp_word)
 *
 * @sp_word: address of an array.
 *
-* @str: string pointer.
+* @s: string pointer.
 * @i: integer value.
 * @j: integer value.
 * @len: integer value.
-* @offset: integer value.
+* @o: integer value.
 * @k: integer value.
 *
 */
 
-void init_memory(char *sp_word, char *str, int i, int j, int len, int offset, int k)
+void init_memory(char *sp_word, char *s, int i, int j, int len, int o, int k)
 {
 
-	for (i = (j - len) + offset; i <= j; i++)
+	for (i = (j - len) + o; i <= j; i++)
 	{
-		*(sp_word + k) = *(str + i);
+		*(sp_word + k) = *(s + i);
 		k++;
 	}
 }
