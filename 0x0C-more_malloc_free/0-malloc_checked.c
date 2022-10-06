@@ -10,13 +10,11 @@
 */
 void *malloc_checked(unsigned int b)
 {
-	unsigned int *p;
+	int *p;
 
-	p = (unsigned int *) malloc(b * sizeof(unsigned int));
-
+	p = (int *) malloc(b * sizeof(int));
 	if (p == NULL)
 	{
-		printf("Error encounter...\n");
 		exit(98);
 	}
 
