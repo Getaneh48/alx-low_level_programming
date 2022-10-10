@@ -16,22 +16,65 @@
 dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *newdog;
-	char *n_name;
-	char *n_owner;
 
-	newdog = malloc(sizeof(dog_t));
-	n_name = malloc(sizeof(name));
-	n_owner = malloc(sizeof(owner));
-
-	strcpy(n_name, name);
-	strcpy(n_owner, owner);
-
-	if (newdog == NULL || n_name == NULL || n_owner == NULL)
+	if (age < 0 || name == NULL || owner == NULL)
 		return (NULL);
 
-	newdog->name = n_name;
-	newdog->owner = n_owner;
+	newdog = malloc(sizeof(dog_t));
+	if (newdog == NULL)
+		return (NULL);
+
+	newdog->name = malloc(_strlen(name) + 1);
+	if (newdog->name == NULL)
+	{
+		free(newdog);
+		return (NULL);
+	}
+
+	newdog->owner = malloc(_strlen(owner) + 1);
+	if (newdog->owner == NULL)
+	{
+		free(newdog);
+		return (NULL);
+	}
+
+	_strcpy(newdog->name, name);
+	_strcpy(newdog->owner, owner);
 	newdog->age = age;
 
 	return (newdog);
+}
+
+/**
+* _strcpy - copy a string from a source to a destination.
+*
+* @dest: destination of a string.
+* @src: source of a string.
+*
+*/
+
+void _strcpy(char *dest, char *src)
+{
+	for (; *src != '\0'; ++src, ++dest)
+		*dest = *src;
+
+}
+
+/**
+* _strlen - find the length of a string.
+*
+* @str: string
+*
+* Return: the length of the string.
+*
+*/
+
+int _strlen(char *str)
+{
+	int len = 0;
+
+	for (; *str != '\0'; ++str)
+		len += 1;
+
+	return (len);
 }
