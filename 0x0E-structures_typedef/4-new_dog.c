@@ -52,6 +52,8 @@ dog_t *new_dog(char *name, float age, char *owner)
 * @dest: destination of a string.
 * @src: source of a string.
 *
+* Return: address of the copied string.
+*
 */
 
 char *_strcpy(char *dest, char *src)
