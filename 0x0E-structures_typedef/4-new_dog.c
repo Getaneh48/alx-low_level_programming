@@ -39,8 +39,8 @@ dog_t *new_dog(char *name, float age, char *owner)
 		return (NULL);
 	}
 
-	_strcpy(newdog->name, name);
-	_strcpy(newdog->owner, owner);
+	newdog->name = _strcpy(newdog->name, name);
+	newdog->owner = _strcpy(newdog->owner, owner);
 	newdog->age = age;
 
 	return (newdog);
@@ -54,10 +54,12 @@ dog_t *new_dog(char *name, float age, char *owner)
 *
 */
 
-void _strcpy(char *dest, char *src)
+char *_strcpy(char *dest, char *src)
 {
 	for (; *src != '\0'; ++src, ++dest)
 		*dest = *src;
+
+	return (dest);
 
 }
 
