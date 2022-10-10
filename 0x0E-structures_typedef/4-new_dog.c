@@ -58,10 +58,15 @@ dog_t *new_dog(char *name, float age, char *owner)
 
 char *_strcpy(char *dest, char *src)
 {
-	for (; *src != '\0'; ++src, ++dest)
-		*dest = *src;
+	int index = 0;
 
-	*dest = '\0';
+	for (index = 0; src[index]; index++)
+	{
+		dest[index] = src[index];
+	}
+
+	dest[index] = '\0';
+
 	return (dest);
 
 }
@@ -79,7 +84,7 @@ int _strlen(char *str)
 {
 	int len = 0;
 
-	for (; *str != '\0'; ++str)
+	while (*str++)
 		len += 1;
 
 	return (len);
