@@ -17,7 +17,7 @@ int delete_nodeint_at_index(listint_t **head, unsigned int index)
 		return (-1);
 	cur_node = *head;
 	if (index == 0)
-		return (delete_first_node(head, cur_node));
+		return (delete_first_node(head));
 	while (cur_node != NULL)
 	{
 		if (cur_index + 1 == index)
@@ -56,16 +56,15 @@ int delete_nodeint_at_index(listint_t **head, unsigned int index)
 * delete_first_node - delete the first node of a list.
 *
 * @head: head of the list.
-* @node: node to be deleted.
 *
 * Return: 1 on success -1 on failure.
 *
 */
-
-int delete_first_node(listint_t **head, listint_t *node)
+int delete_first_node(listint_t **head)
 {
-	listint_t *temp_node;
+	listint_t *temp_node, *node;
 
+	node = *head;
 	temp_node = node->next;
 	free(node);
 	if (temp_node != NULL)
