@@ -7,4 +7,5 @@ int _pow(int base, int exp);
 unsigned int _strlen(const char *n);
 void print_binary(unsigned long int n);
 int get_bit(unsigned long int n, unsigned int index);
+int set_bit(unsigned long int *n, unsigned int index);
 #endif
