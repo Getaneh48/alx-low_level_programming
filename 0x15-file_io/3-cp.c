@@ -37,49 +37,62 @@ int main(int argc, char **av)
 
 void _copyf(char *from, char *to)
 {
-
 	int rfd, wfd;
 	char buffer[1024];
 	ssize_t rf;
 
 	rfd = open(from, O_RDONLY);
-	wfd = open(to, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (rfd == -1)
 	{
 		dprintf(2, "Error: can't read from file %s\n", from);
-		_close(rfd);
-		_close(wfd);
 		exit(98);
 	}
+
+	wfd = open(to, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (wfd == -1)
 	{
 		dprintf(2, "Error: can't write to %s\n", to);
-		_clsoe(rfd);
-		_close(wfd);
 		exit(98);
 	}
-	rf = read(rfd, buffer, 1024);
+	rf = read_file(&rfd, buffer, 1024, from);
 	while (rf)
 	{
-		if (!rf)
-		{
-			dprintf(2, "Error: can't read from file %s\n", from);
-			_close(rfd);
-			_close(wfd);
-			exit(98);
-		}
 		if (!write(wfd, buffer, rf))
 		{
 			dprintf(2, "Error: can't write to %s\n", to);
-			_close(rfd);
-			_close(wfd);
 			exit(99);
 		}
-		rf = read(rfd, buffer, 1024);
+
+		rf = read_file(&rfd, buffer, 1024, from);
 	}
 
 	_close(rfd);
 	_close(wfd);
+}
+
+/**
+* read_file - read a file.
+*
+* @fd: file deiscriptor.
+* @buffer: a buffer to store a data.
+* @bufsize: buffer size.
+* @filename: filename.
+*
+* Return: number of bytes read.
+*
+*/
+ssize_t read_file(int *fd, char *buffer, int bufsize, char *filename)
+{
+	ssize_t rf;
+
+	rf = read(*fd, buffer, bufsize);
+	if (rf == -1)
+	{
+		dprintf(2, "Error: can't read from file %s\n", filename);
+		exit(98);
+	}
+
+	return (rf);
 }
 
 /**
@@ -89,7 +102,7 @@ void _copyf(char *from, char *to)
 */
 void _close(int fd)
 {
-	if (!close(fd))
+	if (close(fd) == -1)
 	{
 		dprintf(2, "Error: Can't close fd %d\n", fd);
 		exit(100);
