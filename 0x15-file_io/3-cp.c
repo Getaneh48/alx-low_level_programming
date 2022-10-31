@@ -5,6 +5,27 @@
 #include <unistd.h>
 #include "main.h"
 
+
+/**
+* main - main function
+*
+* @argc: number of arguments.
+* @av: lists of arguments
+*
+* Return: 0 on success 1 on failure.
+*/
+int main(int argc, char **av)
+{
+	if (argc != 3)
+	{
+		dprintf(2, "Usage: %s file_from file_to\n", av[0]);
+		exit(1);
+	}
+
+	_copyf(av[1], av[2]);
+	return (0);
+}
+
 /**
 * _copyf - reads a text file and prints
 *it to the POSIX standard output.
@@ -68,24 +89,4 @@ void _close(int fd)
 		dprintf(2, "Error: Can't close fd %d\n", fd);
 		exit(100);
 	}
-}
-
-/**
-* main - main function
-*
-* @argc: number of arguments.
-* @av: lists of arguments
-*
-* Return: 0 on success 1 on failure.
-*/
-int main(int argc, char **av)
-{
-	if (argc != 3)
-	{
-		dprintf(2, "Usage: %s file_from file_to\n", av[0]);
-		exit(1);
-	}
-
-	_copyf(av[1], av[2]);
-	return (0);
 }
