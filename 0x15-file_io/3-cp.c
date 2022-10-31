@@ -52,8 +52,6 @@ void _copyf(char *from, char *to)
 	if (wfd == -1 || to == NULL)
 	{
 		dprintf(2, "Error: can't write to %s\n", to);
-		_close(wfd);
-		_close(rfd);
 		exit(98);
 	}
 	rf = read(rfd, buffer, 1024);
@@ -62,19 +60,18 @@ void _copyf(char *from, char *to)
 		if (!rf)
 		{
 			dprintf(2, "Error: can't read from file %s\n", from);
-			_close(rfd);
-			_close(wfd);
 			exit(98);
 		}
 		if (!write(wfd, buffer, rf))
 		{
 			dprintf(2, "Error: can't write to %s\n", to);
-			_close(rfd);
-			_close(wfd);
 			exit(99);
 		}
 		rf = read(rfd, buffer, 1024);
 	}
+
+	_close(wfd);
+	_close(rfd);
 }
 
 /**
