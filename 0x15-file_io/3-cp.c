@@ -18,8 +18,8 @@ int main(int argc, char **av)
 {
 	if (argc != 3)
 	{
-		dprintf(2, "Usage: %s file_from file_to\n", av[0]);
-		exit(1);
+		dprintf(2, "Usage: cp file_from file_to\n");
+		exit(97);
 	}
 
 	_copyf(av[1], av[2]);
