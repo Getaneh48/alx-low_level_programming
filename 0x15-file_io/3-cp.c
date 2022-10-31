@@ -44,15 +44,17 @@ void _copyf(char *from, char *to)
 
 	rfd = open(from, O_RDONLY);
 	wfd = open(to, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	if (rfd == -1 || from == NULL)
+	if (rfd == -1)
 	{
 		dprintf(2, "Error: can't read from file %s\n", from);
 		_close(rfd);
+		_close(wfd);
 		exit(98);
 	}
-	if (wfd == -1 || to == NULL)
+	if (wfd == -1)
 	{
 		dprintf(2, "Error: can't write to %s\n", to);
+		_clsoe(rfd);
 		_close(wfd);
 		exit(98);
 	}
@@ -63,11 +65,13 @@ void _copyf(char *from, char *to)
 		{
 			dprintf(2, "Error: can't read from file %s\n", from);
 			_close(rfd);
+			_close(wfd);
 			exit(98);
 		}
 		if (!write(wfd, buffer, rf))
 		{
 			dprintf(2, "Error: can't write to %s\n", to);
+			_close(rfd);
 			_close(wfd);
 			exit(99);
 		}
