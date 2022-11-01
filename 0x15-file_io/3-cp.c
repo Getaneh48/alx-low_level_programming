@@ -51,8 +51,8 @@ void _copyf(char *from, char *to)
 	wfd = open(to, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (wfd == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: can't read from file %s\n", to);
-		exit(98);
+		dprintf(STDERR_FILENO, "Error: can't write to file %s\n", to);
+		exit(99);
 	}
 	rf = read_file(&rfd, buffer, 1024, from);
 	while (rf)
