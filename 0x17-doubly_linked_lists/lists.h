@@ -1,3 +1,4 @@
+#include <stddef.h>
 #ifndef HEADER_H
 #define HEADER_h
 /**
@@ -16,4 +17,5 @@ typedef struct dlistint_s
     struct dlistint_s *next;
 } dlistint_t;
 size_t print_dlistint(const dlistint_t *h);
+size_t dlistint_len(const dlistint_t *h);
 #endif
