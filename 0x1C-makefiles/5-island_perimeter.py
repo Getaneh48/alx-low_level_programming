@@ -19,15 +19,10 @@ def island_perimeter(grid):
     for row in range(rows):
         for col in range(cols):
             if grid[row][col] == 1:
-                # Add 4 for each land cell, assuming
-                # worst case (all sides are water)
-                perimeter += 4
-
-            # Check north neighbor
-            if row > 0 and grid[row - 1][col] == 1:
-                perimeter -= 2
-            # Check west neighbor
-            if col > 0 and grid[row][col - 1] == 1:
-                perimeter -= 2
+                # Count only outward facing edges
+                perimeter += (not (row > 0 and grid[row - 1][col] == 1)) + \
+                            (not (col > 0 and grid[row][col - 1] == 1)) + \
+                            (not (row + 1 < rows and grid[row + 1][col] == 1)) + \
+                            (not (col + 1 < cols and grid[row][col + 1] == 1))
 
     return(perimeter)
