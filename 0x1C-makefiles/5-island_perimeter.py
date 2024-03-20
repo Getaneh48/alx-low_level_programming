@@ -1,29 +1,41 @@
 #!/usr/bin/python3
-
 """
-This function calculates the perimeter of the island in a grid.
-
-Args:
-  grid: A list of lists of integers,
-  where 0 represents water and 1 represents land.
-
-Returns:
-  The perimeter of the island.
+Calculates the perimeter of an island
 """
 
 
 def island_perimeter(grid):
-    rows, cols = len(grid), len(grid[0])
-    perimeter = 0
+    """
+    a function that calculate the perimeter of an island
+    described in grid.
 
-    for row in range(rows):
-        for col in range(cols):
-            if grid[row][col] == 1:
-                # Count only outward facing edges
-                perimeter += (not (row > 0 and grid[row - 1][col] == 1)) + \
-                            (not (col > 0 and grid[row][col - 1] == 1)) + \
-                            (not (row + 1 < rows and
-                             grid[row + 1][col] == 1)) + \
-                            (not (col + 1 < cols and grid[row][col + 1] == 1))
+    Args:
+       grid: Matrix that emulate the island grid.
 
-    return (perimeter)
+    Return:
+       Returns the perimeter of the island described in grid.
+
+    """
+    count = 0
+    connection_h = 0
+    connection_v = 0
+    # Count horizontal connection of numbers 1
+    for _list in grid:
+        i = 1
+        for number in _list:
+            if number == 1:
+                count += 1
+                if i < len(_list) and number == _list[i]:
+                    connection_h += 1
+            i += 1
+    # Count vertical connection of numbers 1
+    for index, _list in enumerate(grid):
+        for i in range(0, len(_list)):
+            if index < len(grid) - 1:
+                if _list[i] == 1 and _list[i] == grid[index + 1][i]:
+                    connection_v += 1
+    total = count * 4
+    horizontal = connection_h * 2
+    vertical = connection_v * 2
+    perimeter = total - horizontal - vertical
+    return perimeter
