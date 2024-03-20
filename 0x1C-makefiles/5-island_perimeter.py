@@ -22,7 +22,8 @@ def island_perimeter(grid):
                 # Count only outward facing edges
                 perimeter += (not (row > 0 and grid[row - 1][col] == 1)) + \
                             (not (col > 0 and grid[row][col - 1] == 1)) + \
-                            (not (row + 1 < rows and grid[row + 1][col] == 1)) + \
+                            (not (row + 1 < rows and
+                             grid[row + 1][col] == 1)) + \
                             (not (col + 1 < cols and grid[row][col + 1] == 1))
 
-    return(perimeter)
+    return (perimeter)
