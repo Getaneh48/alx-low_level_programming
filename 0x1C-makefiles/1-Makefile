@@ -1,0 +1,9 @@
+
+# variables
+CC = gcc
+SRC = main.c school.c
+
+# uses variables to build the school executable file
+
+all:
+	$(CC) $(SRC) -o school
