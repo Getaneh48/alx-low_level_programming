@@ -1,0 +1,11 @@
+
+# variables
+CC = gcc
+SRC = main.c school.c
+OBJ = $(SRC:.c=.o)
+NAME = school
+
+# uses variables to build the school executable file
+
+all: $(OBJ)
+	$(CC) $(OBJ) -o school
