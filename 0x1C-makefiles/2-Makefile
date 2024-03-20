@@ -1,11 +1,22 @@
-
-# variables
-CC = gcc
-SRC = main.c school.c
-OBJ = $(SRC:.c=.o)
+# Define variables
+CC = gcc  # Change this if you use a different compiler
+SRC = $(wildcard *.c)   # Find all .c files in the current directory
+OBJ = $(SRC:.c=.o)      # Replace .c with .o for object files (automatic)
 NAME = school
 
-# uses variables to build the school executable file
+# Define rules
 
-all: $(OBJ)
-	$(CC) $(OBJ) -o school
+.PHONY: all clean
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+    $(CC) $(OBJ) -o $(NAME)  # Link object files into the executable
+
+# Compile each source file into its corresponding object file
+$(OBJ): $(SRC)
+    $(CC) -c $< -o $@         # Compile each source file ($<) to object file ($@)
+
+# Clean rule removes object files and the executable
+clean:
+    rm -f $(OBJ) $(NAME)        # Remove all object files and the executable 
